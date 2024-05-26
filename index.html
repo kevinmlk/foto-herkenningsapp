@@ -21,17 +21,20 @@
   <title>Challenge #3 | Interactive Development</title>
 </head>
 <body>
-  <h1>Kevin Malekera</h1>
-  <video id="webcam" autoplay playsinline width="640" height="480"></video>
-  <canvas id="canvas" class="d-none"></canvas>
-  <audio id="snapSound" src="./assets/audio/snap.wav" preload = "auto"></audio>
-
-  <button id="start-button">Turn on camera</button>
-  <button id="close-button">Close camera</button>
-  <button id="flip-button">Flip camera</button>
-  <button id="snapshot-button">Take snapshot</button>
-
-  <img src="" alt="" id="photo">
+  <main class="container">
+    <h1>Kevin Malekera</h1>
+    <video id="webcam" autoplay playsinline width="640" height="480"></video>
+    <canvas id="canvas" class="d-none"></canvas>
+    <audio id="snapSound" src="./assets/audio/snap.wav" preload = "auto"></audio>
+  
+    <button id="start-button">Turn on camera</button>
+    <button id="close-button">Close camera</button>
+    <button id="flip-button">Flip camera</button>
+    <button id="snapshot-button">Take snapshot</button>
+  
+    <img src="" alt="" id="photo">
+    <button id="detect-objects" class="d-none">Detect objects</button>
+  </main>
 
   <script src="./assets/js/app.js"></script>
   <script src="./assets/js/sketch.js"></script>

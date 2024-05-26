@@ -1,53 +1,29 @@
-let objectDetector;
+const classifier = ml5.imageClassifier('MobileNet', modelLoaded);
+let modelHasLoaded = false;
 
-let img;
-let objects = [];
-let modelLoaded;
-
-const imgEl = document.querySelector("#photo");
-
-function preload() {
-  if (!imgEl.src) {
-    img = loadImage(imgEl.src);
-  }
+function modelLoaded() {
+  console.log('Yay, the model has loaded!');
+  document.querySelector(".container h1").innerText = "click the image to classify";
+  modelHasLoaded = true;
 }
 
-function setup() {
-  createCanvas(640, 420);
-  objectDetector = ml5.objectDetector('cocossd', modelReady);
-}
 
-function modelReady() {
-  modelLoaded = true;
-  // document.querySelector("#model-feedback").visibility = "hidden";
-  objectDetector.detect(img, gotResult);
-}
-
-function gotResult(err, results) {
-  if (err) {
-    console.log(err);
-  }
-  console.log(results)
-  objects = results;
-}
-
-function draw() {
-  // enkel tekenen als model geladen werd
-  image(img, 0, 0);
-  if (modelLoaded) {
-    //teken groene kader rond elk gevonden object
-    for (let i = 0; i < objects.length; i++) {
-      if (objects[i].confidence > 0.5) {
-
-        noStroke();
-        fill(0, 208, 133);
-        // textSize(8);
-        text(objects[i].label + " " + nfc(objects[i].confidence * 100.0, 2) + "%", objects[i].x + 8, objects[i].y + 12);
-        noFill();
-        strokeWeight(4);
-        stroke(0, 208, 133);
-        rect(objects[i].x, objects[i].y, objects[i].width, objects[i].height);
+document.querySelector('#photo').addEventListener('click', function (e) {
+  console.log(e.target);
+  if (modelHasLoaded && e.target instanceof HTMLImageElement) {
+    classifier.classify(e.target, (err, results) => {
+      console.log(results);
+      e.target.nextElementSibling.innerHTML = '';
+      for (let result of results) {
+        console.log(result);
+        if (result.confidence >= 0.1) {//0.8
+          e.target.nextElementSibling.innerHTML += `<h2>${result.label}</h2>`;
+        }
+        if (e.target.nextElementSibling.innerHTML === '') {
+          e.target.nextElementSibling.innerHTML = `<h2>no result found</h2>`
+        }
       }
-    }
+
+    });
   }
-}
+});
