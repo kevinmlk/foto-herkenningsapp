@@ -30,6 +30,5 @@ flipBtn.addEventListener('click', () => {
 
 snapshotBtn.addEventListener('click', () => {
   let picture = webcam.snap();
-  document.querySelector('#download-photo').href = picture;
-  document.querySelector('#download-photo').classList.remove('visually-hidden');
+  document.querySelector('#photo').src = picture;
 });
