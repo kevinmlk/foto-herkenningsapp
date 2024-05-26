@@ -1,34 +1,53 @@
-const webcamElement = document.getElementById('webcam');
-const canvasElement = document.getElementById('canvas');
-const snapSoundElement = document.getElementById('snapSound');
-const webcam = new Webcam(webcamElement, 'user', canvasElement, snapSoundElement);
+let objectDetector;
 
-const startBtn = document.querySelector('#start-button');
-const closeBtn = document.querySelector('#close-button');
-const flipBtn  = document.querySelector('#flip-button');
-const snapshotBtn = document.querySelector('#snapshot-button');
+let img;
+let objects = [];
+let modelLoaded;
 
-startBtn.addEventListener('click', () => {
+const imgEl = document.querySelector("#photo");
 
-  webcam.start()
-  .then(result =>{
-    console.log("webcam started");
-  })
-  .catch(err => {
-      console.log(err);
-  });
-});
+function preload() {
+  if (!imgEl.src) {
+    img = loadImage(imgEl.src);
+  }
+}
 
-closeBtn.addEventListener('click', () => {
-  webcam.stop();
-});
+function setup() {
+  createCanvas(640, 420);
+  objectDetector = ml5.objectDetector('cocossd', modelReady);
+}
 
-flipBtn.addEventListener('click', () => {
-  webcam.flip();
-  webcam.start();  
-});
+function modelReady() {
+  modelLoaded = true;
+  // document.querySelector("#model-feedback").visibility = "hidden";
+  objectDetector.detect(img, gotResult);
+}
 
-snapshotBtn.addEventListener('click', () => {
-  let picture = webcam.snap();
-  document.querySelector('#photo').src = picture;
-});
+function gotResult(err, results) {
+  if (err) {
+    console.log(err);
+  }
+  console.log(results)
+  objects = results;
+}
+
+function draw() {
+  // enkel tekenen als model geladen werd
+  image(img, 0, 0);
+  if (modelLoaded) {
+    //teken groene kader rond elk gevonden object
+    for (let i = 0; i < objects.length; i++) {
+      if (objects[i].confidence > 0.5) {
+
+        noStroke();
+        fill(0, 208, 133);
+        // textSize(8);
+        text(objects[i].label + " " + nfc(objects[i].confidence * 100.0, 2) + "%", objects[i].x + 8, objects[i].y + 12);
+        noFill();
+        strokeWeight(4);
+        stroke(0, 208, 133);
+        rect(objects[i].x, objects[i].y, objects[i].width, objects[i].height);
+      }
+    }
+  }
+}
