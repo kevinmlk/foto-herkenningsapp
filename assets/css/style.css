@@ -29,3 +29,33 @@ body {
   background-color: var(--xd-white);
   color: var(--xd-black);
 }
+
+/* Responsive CSS */
+@media (max-width: 1400px) {
+  #webcam-container {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 768px) {
+  #header {
+    flex-direction: column;
+  }
+
+  #buttons-container {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  #webcam {
+    width: 99%;
+  }
+
+  #results {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+}

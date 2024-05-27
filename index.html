@@ -28,9 +28,9 @@
 <body>
   <main class="container">
     <section class="mt-5">
-      <div class="d-flex align-items-center justify-content-between mb-5">
+      <div id="header" class="d-flex align-items-center justify-content-between mb-5">
         <h2 id="title">Model is loading...</h2>
-        <div class="d-flex gap-3">
+        <div id="buttons-container" class="d-flex gap-3">
           <button id="start-button" class="btn btn-primary">Turn on camera</button>
           <button id="close-button" class="btn btn-primary">Close camera</button>
           <button id="flip-button" class="btn btn-primary">Flip camera</button>
@@ -40,14 +40,13 @@
 
 
       <div>
-        <div id="webcam-container" class="d-flex" >
+        <div id="webcam-container" class="d-flex justify-content-between" >
           <video id="webcam" autoplay playsinline width="640" height="480"></video>
           <canvas id="canvas" class="d-none"></canvas>
           <img src="" alt="" id="photo">
           <audio id="snapSound" src="./assets/audio/snap.wav" preload = "auto"></audio>
         </div>
         <div id="results" class="d-flex gap-3 mt-3">
-
         </div>
       </div>
     </section>
