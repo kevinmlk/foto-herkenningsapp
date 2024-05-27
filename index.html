@@ -5,9 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- CSS -->
   <link rel="stylesheet" href="./assets/css/reset.css">
-  <link rel="stylesheet" href="./assets/css/style.css">
   <!-- Bootstrap -->
   <link rel="stylesheet" href="./assets//bootstrap/css/bootstrap.min.css">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="./assets/css/style.css">
   <!-- JQuery -->
   <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
   <!-- webcam-easy.js -->
@@ -17,23 +18,39 @@
   <!-- p5.js -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/p5.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/addons/p5.dom.min.js"></script>
+  <!-- Google Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
   <!-- Page Title -->
   <title>Challenge #3 | Interactive Development</title>
 </head>
 <body>
   <main class="container">
-    <h1>Kevin Malekera</h1>
-    <video id="webcam" autoplay playsinline width="640" height="480"></video>
-    <canvas id="canvas" class="d-none"></canvas>
-    <audio id="snapSound" src="./assets/audio/snap.wav" preload = "auto"></audio>
-  
-    <button id="start-button">Turn on camera</button>
-    <button id="close-button">Close camera</button>
-    <button id="flip-button">Flip camera</button>
-    <button id="snapshot-button">Take snapshot</button>
-  
-    <img src="" alt="" id="photo">
-    <button id="detect-objects" class="d-none">Detect objects</button>
+    <section class="mt-5">
+      <div class="d-flex align-items-center justify-content-between mb-5">
+        <h2 id="title">Model is loading...</h2>
+        <div class="d-flex gap-3">
+          <button id="start-button" class="btn btn-primary">Turn on camera</button>
+          <button id="close-button" class="btn btn-primary">Close camera</button>
+          <button id="flip-button" class="btn btn-primary">Flip camera</button>
+          <button id="snapshot-button" class="btn btn-primary">Take snapshot</button>
+        </div>
+      </div>
+
+
+      <div>
+        <div id="webcam-container" class="d-flex" >
+          <video id="webcam" autoplay playsinline width="640" height="480"></video>
+          <canvas id="canvas" class="d-none"></canvas>
+          <img src="" alt="" id="photo">
+          <audio id="snapSound" src="./assets/audio/snap.wav" preload = "auto"></audio>
+        </div>
+        <div id="results" class="d-flex gap-3 mt-3">
+
+        </div>
+      </div>
+    </section>
   </main>
 
   <script src="./assets/js/app.js"></script>
